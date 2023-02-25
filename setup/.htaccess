@@ -1,0 +1,11 @@
+# Remove file extensions from URL
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+# Set index of directory
+DirectoryIndex setup-verifyKey.php
+
+# Block access to the file
+RewriteRule ^config\.json$ - [R=403,L]
