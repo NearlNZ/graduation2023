@@ -18,14 +18,14 @@
     require_once("../../data/connect.php");
     
     $fileType = $_POST['uploadType'];
-    $dataFile = $_FILES['dataFile']['tmp_name'];
+    $uploadFile = $_FILES['uploadFile']['tmp_name'];
     $config = json_decode(file_get_contents('../config.json'), true);
 
     resetDatabase($graduationDB);
 
     if($fileType = ".sql"){
         //Import .sql data
-        $sql_contents = file_get_contents($dataFile);
+        $sql_contents = file_get_contents($uploadFile);
         $sql_queries = explode(';', $sql_contents);
 
         $errorMessage = "";
@@ -47,9 +47,9 @@
             resetDatabase($graduationDB);
 
             //Update config.json
-            $config['configurationSteps'] = [
-                'connectDatabase' => true,
-                'importData' => false
+            $config['appStatus'] = [
+                'isConnectServer' => true,
+                'isDatabaseReady' => false
             ];
 
             $newConfig = json_encode($config, JSON_PRETTY_PRINT);
@@ -60,9 +60,9 @@
             $response->text = $errorMessage;
         }else{
             //Update config.json
-            $config['configurationSteps'] = [
-                'connectDatabase' => true,
-                'importData' => true
+            $config['appStatus'] = [
+                'isConnectServer' => true,
+                'isDatabaseReady' => true
             ];
 
             $newConfig = json_encode($config, JSON_PRETTY_PRINT);

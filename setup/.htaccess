@@ -7,5 +7,5 @@ RewriteRule ^(.*)$ $1.php
 # Set index of directory
 DirectoryIndex setup-verifyKey.php
 
-# Block access to the file
+# Block access to file
 RewriteRule ^config\.json$ - [R=403,L]

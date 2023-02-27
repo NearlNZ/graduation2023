@@ -37,15 +37,15 @@
         } else {
             //Update config.json
             $config = json_decode(file_get_contents('../config.json'), true);
-            $config['databaseConnection'] = [
+            $config['appDatabase'] = [
                 'server' => $server,
                 'username' => $username,
                 'password' => $password,
                 'database' => $database
             ];
-            $config['configurationSteps'] = [
-                'connectDatabase' => true,
-                'importData' => false
+            $config['appStatus'] = [
+                'isConnectServer' => true,
+                'isDatabaseReady' => false
             ];
 
             $newConfig = json_encode($config, JSON_PRETTY_PRINT);
