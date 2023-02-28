@@ -102,7 +102,7 @@ $(document).ready(function () {
 
     //If the file name is empty, assume it's the first item
     if (currentPage === '') {
-        currentPage = $('.menu-item:first-child').find('a').attr('href');
+        currentPage = $('.menu-item:first-child').find('a').attr('href') || "";
     }
 
     //If the current page have .php extension, remove it

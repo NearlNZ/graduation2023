@@ -1,14 +1,15 @@
 {
     "temp-configKey": "KEY-IYX8RmTMjzWG#",
     "configKey": "123456",
-    "databaseConnection": {
+    "appDatabase": {
         "server": "localhost",
         "username": "root",
         "password": "",
-        "database": "graduationTemp"
+        "database": "graduationtemp"
     },
-    "configurationSteps": {
-        "connectDatabase": true,
-        "importData": true
+    "appStatus": {
+        "isConnectServer": true,
+        "isDatabaseReady": true,
+        "isAccountReady": true
     }
 }
