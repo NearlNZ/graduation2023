@@ -95,7 +95,7 @@
                                 </span>
                             </a>
                             <h4 class="mb-2">
-                                <i class="fa-solid fa-user-tie"></i>
+                                <i class="fa-solid fa-user-tie me-1"></i>
                                 Create Account
                             </h4>
                             <p class="mb-3 fw-normal">
@@ -103,8 +103,8 @@
                             </p>
                             <form id="formCreateAccount" class="mb-3" action="../data/user/createNewAccount.php" method="POST">
                                 <div class="mb-1">
-                                    <label for="useDatabase" class="form-label">Database</label>
-                                    <input type="text" class="form-control" id="useDatabase" name="database" placeholder="ฐานข้อมูลไม่พร้อมใช้งาน" value="<?php echo $database->database ?? ''; ?>" autocomplete="off" readonly/>
+                                    <label for="useDatabase" class="form-label">สถานะฐานข้อมูล</label>
+                                    <input type="text" class="form-control" id="useDatabase" value="<?php echo $status->isDatabaseReady ? 'กำลังใช้งานฐานข้อมูล' : 'ไม่มีฐานข้อมูลกำลังใช้งาน'; ?>" autocomplete="off" readonly/>
                                 </div>
                                 <input type="hidden" id="level" name="userLevel" value="Admin">
                                 <div class="mb-1">

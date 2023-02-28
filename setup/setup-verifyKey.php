@@ -80,19 +80,19 @@
                         <div class="form-check mb-2">
                             <i id="isConnectServer" class="fa-lg me-2 <?php echo $status->isConnectServer ? 'fa-solid fa-square-check text-primary' : 'fa-regular fa-square';?>"></i>
                             <label class="form-check-label" for="isConnectServer">
-                                Server
+                                Connect Server
                             </label>
                         </div>
                         <div class="form-check mb-2">
                             <i id="isDatabaseReady" class="fa-lg me-2 <?php echo $status->isDatabaseReady ? 'fa-solid fa-square-check text-primary' : 'fa-regular fa-square';?>"></i>
                             <label class="form-check-label" for="isDatabaseReady">
-                                Database
+                                Create Database
                             </label>
                         </div>
                         <div class="form-check mb-3">
                             <i id="isAccountReady" class="fa-lg me-2 <?php echo $status->isAccountReady ? 'fa-solid fa-square-check text-primary' : 'fa-regular fa-square';?>"></i>
                             <label class="form-check-label" for="isAccountReady">
-                                Account
+                                Create Account 
                             </label>
                         </div>
                         <!-- /System Check -->

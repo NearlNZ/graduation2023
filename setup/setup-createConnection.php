@@ -97,8 +97,8 @@
                                 </span>
                             </a>
                             <h4 class="mb-2">
-                                <i class="fa-solid fa-server"></i>
-                                Server Connection
+                                <i class="fa-solid fa-server me-1"></i>
+                                Connect Server 
                             </h4>
                             <p class="mb-3 fw-normal">
                                 เชื่อมต่อเซิร์ฟเวอร์ฐานข้อมูลของระบบ (MySQL Server)
@@ -106,19 +106,19 @@
                             <form id="formCreateConnection" class="mb-3" action="script/script-createConnection.php" method="POST">
                                 <div class="mb-1">
                                     <label for="server" class="form-label">Server</label>
-                                    <input type="text" class="form-control" id="server" name="server" placeholder="Enter hostname or IP" value="<?php echo $database->server ?? 'localhost'; ?>" autocomplete="off" required />
+                                    <input type="text" class="form-control" id="server" name="server" placeholder="Enter hostname or IP" value="localhost" autocomplete="off" required />
                                 </div>
                                 <div class="mb-1">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="<?php echo $database->username ?? ''; ?>" autofocus autocomplete="off" required />
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" autofocus autocomplete="off" required />
                                 </div>
                                 <div class="mb-1">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" value="<?php echo $database->password ?? ''; ?>" autocomplete="off" />
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" autocomplete="off" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="database" class="form-label">Database name</label>
-                                    <input type="text" class="form-control" id="database" name="database" placeholder="Enter database name" value="<?php echo $database->database ?? ''; ?>" autocomplete="off" required />
+                                    <input type="text" class="form-control" id="database" name="database" placeholder="Enter database name" autocomplete="off" required />
                                 </div>
                                 <button class="btn btn-primary w-100">
                                     <span class="fa-solid fa-play me-2"></span>
@@ -151,26 +151,33 @@
             e.preventDefault();
             var form = $(this);
 
-            lunchAjaxRequest({
-                type: 'POST',
-                url: form.attr('action'),
-                data: form.serialize(),
-                successCallback: function(response) {
-                    if (!response.status) {
-                        logError(response);
-                    } else if (response.status == "success") {
-                        swalResponse({
-                            response: response,
-                            timer: 1500,
-                            callback: function() {
-                                window.location.href = "setup-createDatabase";
+            swalConfirm({
+                icon: 'question',
+                text: 'ต้องการสร้างการเชื่อมต่อกับเซิร์ฟเวอร์ฐานข้อมูลขึ้นใหม่หรือไม่',
+                confirmButtonText: 'ดำเนินการต่อ',
+                confirmCallback: function() {
+                    lunchAjaxRequest({
+                        type: 'POST',
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        successCallback: function(response) {
+                            if (!response.status) {
+                                logError(response);
+                            } else if (response.status == "success") {
+                                swalResponse({
+                                    response: response,
+                                    timer: 1500,
+                                    callback: function() {
+                                        window.location.href = "setup-createDatabase";
+                                    }
+                                });
+                            } else {
+                                swalResponse({
+                                    response: response
+                                });
                             }
-                        });
-                    } else {
-                        swalResponse({
-                            response: response
-                        });
-                    }
+                        }
+                    });
                 }
             });
         });

@@ -7,11 +7,7 @@
     }
 
     //Check status
-<<<<<<< HEAD
     require_once('../include/scripts/script-checkConnection.php');
-=======
-    require_once('./include/scripts/script-checkConnection.php');
->>>>>>> bf01bc14aa7dd0dd1aa2f3698f239d0b9ea6cbcd
 ?>
 
 <!DOCTYPE html>
@@ -73,11 +69,7 @@
                     <ul class="nav nav-pills mb-3 justify-content-between row-cols-3" role="tablist">
                         <li id="pillServer" class="nav-item">
                             <a class="nav-link btn" href="setup-createConnection">
-<<<<<<< HEAD
                                 <i class="fa-solid fa-server me-1 d-none d-md-inline"></i>
-=======
-                                <i class="fa-solid fa-server me-1"></i>
->>>>>>> bf01bc14aa7dd0dd1aa2f3698f239d0b9ea6cbcd
                                 Server
                             </a>
                         </li>
@@ -104,16 +96,16 @@
                                 </span>
                             </a>
                             <h4 class="mb-2">
-                                <i class="fa-solid fa-database"></i>
-                                Database Preparation
+                                <i class="fa-solid fa-database me-1"></i>
+                                Create Database
                             </h4>
                             <p class="mb-3 fw-normal">
                                 สร้างฐานข้อมูลใหม่ หรือนำเข้าฐานข้อมูลจากไฟล์ SQL 
                             </p>
                             <form id="formCreateDatabase" class="mb-3" action="script/script-createDatabase.php" method="POST">
                                 <div class="mb-3">
-                                    <label for="useDatabase" class="form-label">Database</label>
-                                    <input type="text" class="form-control" id="useDatabase" name="database" placeholder="ฐานข้อมูลไม่พร้อมใช้งาน" value="<?php echo $database->database ?? ''; ?>" autocomplete="off" readonly/>
+                                    <label for="useDatabase" class="form-label">Server Status</label>
+                                    <input type="text" class="form-control" id="useDatabase" name="database" value="<?php echo $status->isConnectServer ? 'เชื่อมต่อเซิร์ฟเวอร์แล้ว' : 'ไม่มีการเชื่อมต่อเซิร์ฟเวอร์ฐานข้อมูล'; ?>" autocomplete="off" readonly/>
                                 </div>
                                 <div class="mb-1">
                                     <label for="option" class="form-label">Option</label>
@@ -129,8 +121,8 @@
                                             นำเข้าฐานข้อมูลจากไฟล์ .sql
                                             <br>
                                             <small>
-                                                ฐานข้อมูลจำเป็นต้องมีรูปแบบข้อมูลตามที่กำหนด<br>
-                                                ดาวน์โหลด Database Dictionary 
+                                                ฐานข้อมูลจำเป็นต้องมีโครงสร้างตามรูปแบบที่กำหนด<br>
+                                                ดาวน์โหลด Data Dictionary 
                                                 <a href="../assets/file/dataDictionary.pdf" download="dataDictionary.pdf">
                                                     คลิกที่นี่
                                                     <i class="fa-solid fa-file-pdf fa-lg ms-1"></i>
@@ -178,7 +170,7 @@
             //Get confirm from user
             swalConfirm({
                 icon: 'question',
-                text: 'การนำเข้าข้อมูลจะทำการลบข้อมูลปัจจุบันทั้งหมด ต้องการดำเนินการต่อหรือไม่',
+                text: 'การดำเนินการนี้จะลบข้อมูลเดิมหากมีฐานข้อมูลที่กำลังใช้งาน ต้องการดำเนินการต่อหรือไม่ ',
                 confirmButtonText: 'ดำเนินการต่อ',
                 confirmCallback: function() {
                     //Show loader
