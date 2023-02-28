@@ -7,7 +7,11 @@
     }
 
     //Check status
+<<<<<<< HEAD
     require_once('../include/scripts/script-checkConnection.php');
+=======
+    require_once('./include/scripts/script-checkConnection.php');
+>>>>>>> bf01bc14aa7dd0dd1aa2f3698f239d0b9ea6cbcd
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +73,11 @@
                     <ul class="nav nav-pills mb-3 justify-content-between row-cols-3" role="tablist">
                         <li id="pillServer" class="nav-item">
                             <a class="nav-link btn" href="setup-createConnection">
+<<<<<<< HEAD
                                 <i class="fa-solid fa-server me-1 d-none d-md-inline"></i>
+=======
+                                <i class="fa-solid fa-server me-1"></i>
+>>>>>>> bf01bc14aa7dd0dd1aa2f3698f239d0b9ea6cbcd
                                 Server
                             </a>
                         </li>
