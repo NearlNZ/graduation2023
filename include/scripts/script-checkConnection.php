@@ -19,9 +19,9 @@
     } else {
         $config['appStatus']['isConnectServer'] = true;
 
-        //Check if useraccount table exists in the database
+        //Check if user_account table exists in the database
         require_once('../data/connect.php');
-        $sql = "SHOW TABLES LIKE 'useraccount';";
+        $sql = "SHOW TABLES LIKE 'user_account';";
         $result = $graduationDB->query($sql);
 
         if ($result->num_rows == 0) {
@@ -31,7 +31,7 @@
             $config['appStatus']['isDatabaseReady'] = true;
 
             //Check if there is an admin user account
-            $sql = "SELECT user_id from useraccount where user_level = 'Admin';";
+            $sql = "SELECT user_id from user_account where user_level = 'Admin';";
             $result = $graduationDB->query($sql);
 
             if ($result->num_rows == 0) {

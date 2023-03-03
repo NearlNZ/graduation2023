@@ -5,11 +5,11 @@
         "server": "localhost",
         "username": "root",
         "password": "",
-        "database": "graduationtemp"
+        "database": "graduation2023"
     },
     "appStatus": {
         "isConnectServer": true,
         "isDatabaseReady": true,
-        "isAccountReady": true
+        "isAccountReady": false
     }
 }

@@ -2,7 +2,7 @@
 	$server='localhost';
 	$username='root';
 	$password='';
-	$database='graduationtemp';
+	$database='graduation2023';
 	$graduationDB = new mysqli($server, $username, $password, $database);
 	if($graduationDB->connect_error) die('<br>'.$graduationDB->connect_error);
 	$graduationDB->query('SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci');

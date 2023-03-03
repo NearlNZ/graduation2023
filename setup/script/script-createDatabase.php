@@ -1,5 +1,13 @@
 <?php
-    function resetDatabase($database) {
+    header('Content-Type: application/json; charset=utf-8');
+    $response = new stdClass();
+    require_once("../../data/connect.php");
+
+    $option = $_POST['option'];
+    $uploadFile = $_FILES['uploadFile']['tmp_name'] ?? null;
+    $config = json_decode(file_get_contents('../config.json'), true);
+
+    function resetDatabase($database){
         // Drop all data tables in the database
         $database->query("SET FOREIGN_KEY_CHECKS=0");
         $tables = array();
@@ -13,67 +21,40 @@
         $database->query("SET FOREIGN_KEY_CHECKS=1");
     }
 
-    header('Content-Type: application/json; charset=utf-8');
-    $response = new stdClass();
-    require_once("../../data/connect.php");
-    
-    $fileType = $_POST['uploadType'];
-    $uploadFile = $_FILES['uploadFile']['tmp_name'];
-    $config = json_decode(file_get_contents('../config.json'), true);
-
     resetDatabase($graduationDB);
 
-    if($fileType = ".sql"){
-        //Import .sql data
-        $sql_contents = file_get_contents($uploadFile);
-        $sql_queries = explode(';', $sql_contents);
-
-        $errorMessage = "";
-        $errorCount = 0;
-        $count = 0;
-        foreach ($sql_queries as $sql){
-            if ($sql != "") {
-                if ($graduationDB->query($sql) === FALSE){
-                    $errorCount++;
-                    $errorMessage = $graduationDB->error;
-                    break;
-                }else{
-                    $count++;
-                }
-            }
-        }
-
-        if($errorCount > 0 && $errorMessage != 'Query was empty'){
-            resetDatabase($graduationDB);
-
-            //Update config.json
-            $config['appStatus']['isDatabaseReady'] = false;
-
-            $newConfig = json_encode($config, JSON_PRETTY_PRINT);
-            file_put_contents('../config.json', $newConfig);
-
-            $response->status = "warning";
-            $response->title = "เกิดข้อผิดพลาด";
-            $response->text = $errorMessage;
-        }else{
-            //Update config.json
-            $config['appStatus']['isDatabaseReady'] = true;
-
-            $newConfig = json_encode($config, JSON_PRETTY_PRINT);
-            file_put_contents('../config.json', $newConfig);
-
-            $response->status = "success";
-            $response->title = "ดำเนินการสำเร็จ";
-            $response->text = $count." Queries ถูกดำเนินการในการนำเข้าข้อมูลครั้งนี้";
-        }
+    if ($option == "import") {
+        //Import data from uploaded file
+        $sql = file_get_contents($uploadFile);
+    } else {
+        //Create new empty database
+        $sql = file_get_contents("../../assets/file/graduationDB-empty.sql");
     }
-    else if($fileType = ".xlsx"){
-        //Import .sql data
-    }else{
+
+    if ($graduationDB->multi_query($sql) === TRUE) {
+        //Update config.json
+        $config['appStatus']['isDatabaseReady'] = true;
+
+        $newConfig = json_encode($config, JSON_PRETTY_PRINT);
+        file_put_contents('../config.json', $newConfig);
+
+        $response->status = "success";
+        $response->title = "ดำเนินการสำเร็จ";
+        $response->text = "ระบบได้สร้างฐานข้อมูลใหม่แล้ว";
+    } else {
+        resetDatabase($graduationDB);
+
+        //Update config.json
+        $config['appStatus']['isDatabaseReady'] = false;
+
+        $newConfig = json_encode($config, JSON_PRETTY_PRINT);
+        file_put_contents('../config.json', $newConfig);
+
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
-        $response->text = "ประเภทไฟล์ข้อมูลไม่ถูกต้อง รองรับไฟล์ .sql และ .xlsx เท่านั้น";
+        $response->text = "ไม่สามารถสร้างฐานข้อมูลได้ : " . $graduationDB->error;
     }
+    
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     $graduationDB->close();
