@@ -96,7 +96,7 @@
                                 </span>
                             </a>
                             <h4 class="mb-2">
-                                <i class="fa-solid fa-database me-1"></i>
+                                <i id="isDatabaseReady" class="fa-lg me-1 <?php echo $status->isDatabaseReady ? 'fa-solid fa-square-check text-primary' : 'fa-regular fa-square';?>"></i>
                                 Create Database
                             </h4>
                             <p class="mb-3 fw-normal">
@@ -141,9 +141,9 @@
                                 </button>
                             </form>
                             <div class="text-center mt-4">
-                                <a href="../" class="d-flex align-items-center justify-content-center">
+                                <a href="setup-verifyKey" class="d-flex align-items-center justify-content-center">
                                     <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
-                                    กลับหน้าหลัก
+                                    ย้อนกลับ
                                 </a>
                             </div>
                         </div>

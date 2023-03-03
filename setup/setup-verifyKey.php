@@ -99,8 +99,8 @@
 
                         <!-- Form -->
                         <form id="formConfiguration" class="mb-3" action="script/script-verifyKey.php" method="POST">
-                            <div class="mb-3">
-                                <label for="key" class="form-label">Configuration Key</label>
+                            <div class="mb-3 input-group input-group-merge">
+                                <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
                                 <input type="text" class="form-control" id="key" name="key" placeholder="Enter configuration key." autofocus autocomplete="off" required />
                             </div>
                             <button class="btn btn-primary w-100">

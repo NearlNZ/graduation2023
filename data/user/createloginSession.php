@@ -8,7 +8,7 @@
     $password = $_POST['password'];
 
     //1) Check if username exist
-    $sql = "SELECT userID, userUsername, userLevel, userPassword, userDepartment FROM userAccount WHERE userUsername = ? LIMIT 1;";
+    $sql = "SELECT user_id, user_name, user_level, user_password, user_department FROM user_Account WHERE user_name = ? LIMIT 1;";
 
     $stmt =  $graduationDB->stmt_init(); 
     $stmt->prepare($sql);
@@ -29,7 +29,7 @@
 
     //2) Check if password not match
     $account=$userResult->fetch_assoc();
-    if(!password_verify($password, $account['userPassword'])){
+    if(!password_verify($password, $account['user_password'])){
         $response->status = "warning";
         $response->title = 'เกิดข้อผิดพลาด';
         $response->text = "รหัสผ่านไม่ถูกต้อง โปรดตรวจสอบอีกครั้ง";
@@ -41,15 +41,15 @@
 
     //Pass) Create session for user
     $_SESSION['SESSION-userAccount'] = [
-        "id" => $account['userID'],
-        "username" => $account['userUsername'],
-        "level" => $account['userLevel'],
-        "department" => $account['userDepartment']
+        "id" => $account['user_id'],
+        "username" => $account['user_name'],
+        "level" => $account['user_level'],
+        "department" => $account['user_department']
     ];
 
     $response->status = "success";
     $response->text = "กำลังเข้าสู่ระบบ กรุณารอสักครู่...";
-    $response->level = $account['userLevel'];
+    $response->level = $account['user_level'];
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     $graduationDB->close();

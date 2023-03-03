@@ -3,6 +3,7 @@
     $response = new stdClass();
     require_once("../connect.php");
 
+    $id = uniqid("UUID-").rand(100,999);
     $username = $_POST['username'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'] ?? null;
@@ -21,7 +22,7 @@
     }
 
     //2) Check if username already exist
-    $sql = "SELECT userID FROM userAccount WHERE userUsername = ?;";
+    $sql = "SELECT user_id FROM user_Account WHERE user_name = ?;";
 
     $stmt =  $graduationDB->stmt_init(); 
     $stmt->prepare($sql);
@@ -43,13 +44,12 @@
     //Pass) Create new account
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT 
-            INTO userAccount(userUsername, userPassword, userLevel, userDepartment)
-            VALUES(?, ?, ?, ?);";
+    $sql = "INSERT INTO user_Account(user_id, user_name, user_password, user_level, user_department)
+            VALUES(?, ?, ?, ?, ?);";
     
     $stmt =  $graduationDB->stmt_init(); 
     $stmt->prepare($sql);
-    $stmt->bind_param('ssss', $username, $hashPassword, $level, $department);
+    $stmt->bind_param('sssss', $id, $username, $hashPassword, $level, $department);
 
     if($stmt->execute()){
         $stmt->close();

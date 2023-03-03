@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="p-4">
-                                                <div class="text-center mb-4 mb-lg-5">
+                                                <div class="text-center mb-5 mt-2">
                                                     <a class="h3 justify-content-center head-1">
                                                         <i class="fa-solid fa-graduation-cap fa-lg text-dark"></i>
                                                         <span class="fw-bolder text-dark ms-1">
@@ -93,18 +93,21 @@
 
                                                 <!-- START login form -->
                                                 <form id="formLogin" class="user" action="data/user/createloginSession.php" method="POST">
-                                                    <div class="mb-3">
-                                                        <input type="text" class="form-control form-control-user" id="username" name="username"
-                                                        required autofocus autocomplete="off" placeholder="Username"
-                                                        value="">
+                                                    <div class="input-group input-group-merge mb-3">
+                                                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                                        <input type="text" class="form-control form-control-lg" id="username" name="username"
+                                                        required autofocus autocomplete="off" placeholder="Username">
                                                     </div>
-                                                    <div class="mb-4 mb-lg-5"> 
-                                                        <input type="password" class="form-control form-control-user" id="password" name="password" 
-                                                        required autocomplete="off" placeholder="Password"
-                                                        value="">
+                                                    <div class="form-password-toggle mb-5">
+                                                        <div class="input-group input-group-merge">
+                                                            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                                            <input type="password" class="form-control form-control-lg" id="password" name="password"
+                                                            required autocomplete="off" placeholder="Password">
+                                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                                        </div>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary btn-user btn-block shadow mb-3 mb-lg-4">
-                                                        <i class="fa-solid fa-lg fa-arrow-right-to-bracket me-2"></i>
+                                                    <button type="submit" class="btn btn-primary btn-block btn-lg shadow mb-4">
+                                                        <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
                                                         <span class="h6 text-light">เข้าสู่ระบบ</span>
                                                     </button>
                                                     <div class="text-center">
@@ -128,6 +131,9 @@
                 </div>
             </div>
         </main>
+
+        <!-- Template JS -->
+        <script src="assets/js/template.js"></script>
         
         <!-- Page JS -->
         <script src="include/scripts/customFunctions.js"></script>
@@ -149,7 +155,7 @@
                                 timer: 2000,
                                 callback: function() {
                                     if(response.level=='Admin' || response.level=='Officer'){
-                                        window.location.href="system-officer";
+                                        window.location.href="system-officer/dashboard";
                                     } else if(response.level=='Faculty'){
                                         window.location.href="system-faculty";
                                     }

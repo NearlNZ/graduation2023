@@ -147,37 +147,7 @@ function backup(){
         cancelButtonText: 'ยกเลิกการสำรองข้อมูล',
         confirmButtonText: 'เริ่มการสำรองข้อมูล',
         confirmCallback : function() {
-            lunchAjaxRequest({
-                url: 'backupDatabase',
-                successCallback: function(response) {
-                    if (!response.status){
-                        logError(response);
-                    } else if (response.status == "success") {
-                        swalResponse({
-                            response: response,
-                            timer: 2000,
-                            callback: function() {
-                                var link = $('<a>', {
-                                    href: response.url,
-                                    download: response.filename,
-                                    style: 'display:none'
-                                });
-                                $('body').append(link);
-                                
-                                link[0].click();
-                                alert(response.command);
-                                setTimeout(function() {
-                                    link.remove();
-                                }, 1000);
-                            }
-                        });
-                    } else {
-                        swalResponse({
-                            response: response
-                        });
-                    }
-                }
-            });
+            
         }
     });
 }

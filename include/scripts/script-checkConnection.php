@@ -31,7 +31,7 @@
             $config['appStatus']['isDatabaseReady'] = true;
 
             //Check if there is an admin user account
-            $sql = "SELECT userID from useraccount where userLevel = 'Admin';";
+            $sql = "SELECT user_id from useraccount where user_level = 'Admin';";
             $result = $graduationDB->query($sql);
 
             if ($result->num_rows == 0) {
