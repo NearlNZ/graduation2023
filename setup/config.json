@@ -10,6 +10,6 @@
     "appStatus": {
         "isConnectServer": true,
         "isDatabaseReady": true,
-        "isAccountReady": false
+        "isAccountReady": true
     }
 }

@@ -3,6 +3,17 @@
     $response = new stdClass();
     require_once("../../data/connect.php");
 
+    //0) Exit if user not verified key yet.
+    session_start();
+    if (!isset($_SESSION['SESSION-keyVerified']) || $_SESSION['SESSION-keyVerified'] != true) {
+        $response->status = "warning";
+        $response->title = "เกิดข้อผิดพลาด";
+        $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+
+    //Set parameter
     $option = $_POST['option'];
     $uploadFile = $_FILES['uploadFile']['tmp_name'] ?? null;
     $config = json_decode(file_get_contents('../config.json'), true);
@@ -10,27 +21,30 @@
     function resetDatabase($database){
         // Drop all data tables in the database
         $database->query("SET FOREIGN_KEY_CHECKS=0");
-        $tables = array();
-        $result = $database->query("SHOW TABLES");
-        while ($row = $result->fetch_array(MYSQLI_NUM)) {
-            $tables[] = $row[0];
-        }
-        foreach ($tables as $table) {
-            $database->query("DROP TABLE IF EXISTS `$table`");
+        $tableList = $database->query("SHOW TABLES")->fetch_all(MYSQLI_NUM);
+        foreach ($tableList as $table) {
+            $database->query("DROP TABLE IF EXISTS `$table[0]`");
         }
         $database->query("SET FOREIGN_KEY_CHECKS=1");
     }
 
-    resetDatabase($graduationDB);
-
+    //1) Set sql source depend on create option
     if ($option == "import") {
-        //Import data from uploaded file
         $sql = file_get_contents($uploadFile);
-    } else {
-        //Create new empty database
+    } else if ($option == "create") {
         $sql = file_get_contents("../../assets/file/graduationDB-empty.sql");
+    } else {
+        $response->status = "error";
+        $response->title = "เกิดข้อผิดพลาด";
+        $response->text = "ตัวเลือกการสร้างฐานข้อมูลไม่ถูกต้อง";
+
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        $graduationDB->close();
+        exit();
     }
 
+    //Pass) Create database
+    resetDatabase($graduationDB);
     if ($graduationDB->multi_query($sql) === TRUE) {
         //Update config.json
         $config['appStatus']['isDatabaseReady'] = true;
@@ -54,7 +68,6 @@
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "ไม่สามารถสร้างฐานข้อมูลได้ : " . $graduationDB->error;
     }
-    
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     $graduationDB->close();

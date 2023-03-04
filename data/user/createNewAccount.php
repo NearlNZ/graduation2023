@@ -3,6 +3,17 @@
     $response = new stdClass();
     require_once("../connect.php");
 
+    //0) Exit if user not verified key yet.
+    session_start();
+    if (!isset($_SESSION['SESSION-userAccount']) && (!isset($_SESSION['SESSION-keyVerified']) || $_SESSION['SESSION-keyVerified'] != true)) {
+        $response->status = "warning";
+        $response->title = "เกิดข้อผิดพลาด";
+        $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+
+    //Set parameter
     $id = uniqid("UUID-").rand(100,999);
     $username = $_POST['username'];
     $password = $_POST['password'];

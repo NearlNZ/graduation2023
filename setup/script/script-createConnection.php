@@ -3,17 +3,27 @@
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $response = new stdClass();
 
+    //0) Exit if user not verified key yet.
+    session_start();
+    if (!isset($_SESSION['SESSION-keyVerified']) || $_SESSION['SESSION-keyVerified'] != true) {
+        $response->status = "warning";
+        $response->title = "เกิดข้อผิดพลาด";
+        $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+    
+    //Set parameter
     $server = $_POST['server'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $database = $_POST['database'];
 
+    //Pass) Try to connect database and create database connection file
     try {
-        //Try to connect database
         $conn = new mysqli($server, $username, $password, $database);
         $conn->close();
 
-        //Create database connection file
         $file = '../../data/connect.php';
         $content =  
             "<?php" .

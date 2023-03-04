@@ -3,6 +3,7 @@
     $response = new stdClass();
     session_start();
 
+    //Set parameter
     $key = $_POST['key'];
 
     $config = json_decode(file_get_contents('../config.json'), true);

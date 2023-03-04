@@ -104,7 +104,7 @@
                             <form id="formCreateAccount" class="mb-3" action="../data/user/createNewAccount.php" method="POST">
                                 <div class="mb-1">
                                     <label for="useDatabase" class="form-label">สถานะฐานข้อมูล</label>
-                                    <input type="text" class="form-control" id="useDatabase" value="<?php echo $status->isDatabaseReady ? 'กำลังใช้งานฐานข้อมูล' : 'ไม่มีฐานข้อมูลกำลังใช้งาน'; ?>" autocomplete="off" readonly/>
+                                    <input type="text" class="form-control" id="useDatabase" value="<?php echo $status->isDatabaseReady ? 'ฐานข้อมูลพร้อมใช้งาน' : 'ไม่มีฐานข้อมูลพร้อมใช้งาน'; ?>" autocomplete="off" readonly/>
                                 </div>
                                 <input type="hidden" id="level" name="userLevel" value="Admin">
                                 <div class="mb-1">
@@ -155,24 +155,35 @@
         $('#formCreateAccount').submit(function(e) {
             e.preventDefault();
             var form = $(this);
-
-            lunchAjaxRequest({
-                type: 'POST',
-                url: form.attr('action'),
-                data: form.serialize(),
-                successCallback: function(response) {
-                    if (!response.status) {
-                        logError(response);
-                    } else if (response.status == "success") {
-                        swalResponse({
-                            response: response,
-                            timer: 2000
-                        });
-                    } else {
-                        swalResponse({
-                            response: response
-                        });
-                    }
+            var username = $('#username').val();
+            
+            swalConfirm({
+                icon: 'question',
+                text: 'เพิ่ม "' + username + '" เข้าสู่ระบบ',
+                confirmButtonText: 'ดำเนินการต่อ',
+                confirmCallback: function() {
+                    lunchAjaxRequest({
+                        type: 'POST',
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        successCallback: function(response) {
+                            if (!response.status) {
+                                logError(response);
+                            } else if (response.status == "success") {
+                                swalResponse({
+                                    response: response,
+                                    timer: 2000,
+                                    callback: function() {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                swalResponse({
+                                    response: response
+                                });
+                            }
+                        }
+                    });
                 }
             });
         });
