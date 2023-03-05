@@ -14,7 +14,7 @@
         $response->title = "ตรวจสอบสำเร็จ";
         $response->text = "กำลังเปิดใช้งาน System Configuration";
 
-        $_SESSION['SESSION-keyVerified'] = true;
+        $_SESSION['GR-session-keyVerified'] = true;
     } else {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";

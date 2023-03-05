@@ -4,6 +4,7 @@
     $response = new stdClass();
     require_once("../connect.php");
 
+    //Set parameter
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -40,7 +41,7 @@
     }
 
     //Pass) Create session for user
-    $_SESSION['SESSION-userAccount'] = [
+    $_SESSION['GR-session-userAccount'] = [
         "id" => $account['user_id'],
         "username" => $account['user_name'],
         "level" => $account['user_level'],

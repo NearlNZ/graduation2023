@@ -1,7 +1,7 @@
 <?php
     // Redirect if user not verified key yet.
     session_start();
-    if (!isset($_SESSION["SESSION-keyVerified"]) or $_SESSION["SESSION-keyVerified"] != true) {
+    if (!isset($_SESSION['GR-session-keyVerified']) or $_SESSION['GR-session-keyVerified'] != true) {
         header("Location: setup-verifyKey");
         exit();
     }

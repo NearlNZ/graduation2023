@@ -1,6 +1,10 @@
 <?php
     //Check status
     require_once('../include/scripts/script-checkConnection.php');
+
+    //Unset keyVerified session
+    session_start();
+    if(isset($_SESSION['GR-session-keyVerified'])) unset($_SESSION['GR-session-keyVerified']);
 ?>
 
 <!DOCTYPE html>

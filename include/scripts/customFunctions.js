@@ -132,7 +132,14 @@ function logout(){
         title: 'ออกจากระบบ',
         text: 'กำลังออกจากระบบ ต้องการดำเนินการต่อหรือไม่',
         confirmCallback : function() {
-            window.location.href= "../index";
+            Swal.fire({
+                icon: 'success',
+                text: 'กำลังออกจากระบบโปรดรอสักครู่',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                window.location.href= "../logout";
+            });
         }
     });
 }

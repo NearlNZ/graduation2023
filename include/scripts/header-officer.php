@@ -1,7 +1,7 @@
 <?php
     //Check login session & userlevel
     session_start();
-    $account = (object) $_SESSION['SESSION-userAccount'] ?? null;
+    $account = (object) $_SESSION['GR-session-userAccount'] ?? null;
     if($account == null){
         header("Location: ../login.php");
         exit();

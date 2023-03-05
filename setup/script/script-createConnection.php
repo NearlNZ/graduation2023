@@ -5,7 +5,7 @@
 
     //0) Exit if user not verified key yet.
     session_start();
-    if (!isset($_SESSION['SESSION-keyVerified']) || $_SESSION['SESSION-keyVerified'] != true) {
+    if (!isset($_SESSION['GR-session-keyVerified']) || $_SESSION['GR-session-keyVerified'] != true) {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";

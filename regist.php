@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>login</title>
+        <title>Regist</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="assets/font/Kanit.css"/>
@@ -32,7 +32,7 @@
                 background-color:#222e3c;
             }
             .clickable {
-			    cursor: pointer;
+                cursor: pointer;
             }
             .cover {
                 overflow: hidden;
@@ -86,25 +86,22 @@
                                                         </span>
                                                         <br>
                                                         <span class="fw-bold head-1">
-                                                            เข้าสู่ระบบ สำหรับเจ้าหน้าที่
+                                                            เข้าสู่ระบบสำหรับบัณฑิต
                                                         </span>
                                                     </a>
                                                 </div>
 
                                                 <!-- START login form -->
-                                                <form id="formLogin" class="user" action="data/user/createloginSession.php" method="POST">
+                                                <form id="formLogin" class="user" action="data/student/createloginSession.php" method="POST">
                                                     <div class="input-group input-group-merge mb-3">
-                                                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                                                        <input type="text" class="form-control form-control-lg" id="username" name="username"
-                                                        required autofocus autocomplete="off" placeholder="Username">
+                                                        <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                                                        <input type="text" class="form-control form-control-lg" id="cardID" name="cardID"
+                                                        required autofocus autocomplete="off" placeholder="รหัสประจำตัวประชาชน">
                                                     </div>
-                                                    <div class="form-password-toggle mb-5">
-                                                        <div class="input-group input-group-merge">
-                                                            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                                                            <input type="password" class="form-control form-control-lg" id="password" name="password"
-                                                            required autocomplete="off" placeholder="Password">
-                                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                                        </div>
+                                                    <div class="input-group input-group-merge mb-5">
+                                                        <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                                                        <input type="text" class="form-control form-control-lg" id="confirmCardID" name="confirmCardID"
+                                                        required autocomplete="off" placeholder="ยืนยันรหัสประจำตัวประชาชน">
                                                     </div>
                                                     <button type="submit" class="btn btn-primary btn-block btn-lg shadow mb-4">
                                                         <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
@@ -154,11 +151,7 @@
                                 response: response,
                                 timer: 2000,
                                 callback: function() {
-                                    if(response.level=='Admin' || response.level=='Officer'){
-                                        window.location.href="system-officer/dashboard";
-                                    } else if(response.level=='Faculty'){
-                                        window.location.href="system-faculty";
-                                    }
+                                    window.location.href="system-student/dashboard";
                                 }
                             });
                         } else {

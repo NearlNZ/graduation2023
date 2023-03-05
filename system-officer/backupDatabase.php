@@ -5,7 +5,7 @@
     require_once("../data/connect.php");
 
     //1) Check if user not log in
-    $account = (object) $_SESSION['SESSION-userAccount'] ?? null;
+    $account = (object) $_SESSION['GR-session-userAccount'] ?? null;
     if($account == null){
         $response->status = 'warning';
         $response->title = 'เกิดข้อผิดพลาด';
