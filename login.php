@@ -26,18 +26,9 @@
         <script src="assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 
+        <!-- Page Style -->
+        <link rel="stylesheet" href="assets/css/custom-style.css"/>
         <style>
-            body{
-                font-family: 'Kanit';
-                background-color:#222e3c;
-            }
-            .clickable {
-			    cursor: pointer;
-            }
-            .cover {
-                overflow: hidden;
-                object-fit:cover;
-            }
             @media screen and (max-width: 992px) {
                 .head-1 {
                     font-size: 19px !important; 
@@ -52,7 +43,7 @@
         </style>
     </head>
 
-    <body>
+    <body class="body-dark">
         <main class="d-flex w-100">
             <div class="container d-flex flex-column">
                 <div class="row vh-100 p-0">
@@ -72,7 +63,7 @@
                                 <div class="card-body p-0">
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 d-none d-lg-block p-0 h-100">
-                                            <div class="align-middle cover">
+                                            <div class="align-middle">
                                                 <img class="img-fluid w-100" src="assets/img/common/page/login-cover.jpg">
                                             </div>
                                         </div>

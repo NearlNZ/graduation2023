@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Index</title>
+        <title>หน้าหลัก</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="assets/font/Kanit.css"/>
@@ -24,31 +24,10 @@
         <script src="assets/vendor/fontawesome/js/all.min.js"></script>
         <script src="assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-        <style>
-            body{
-                font-family: 'Kanit';
-                background-color:#EBEBEB;
-            }
-            .clickable:hover {
-                transform: scale(1.03); 
-            }
-            .clickable {
-                cursor: pointer;
-                transition: transform .2s;
-                border-radius: 10px;
-            }
-            .stat {
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                background-color: #DCEAF4;
-                border-radius:50%;
-                height:50px;
-                width:50px;
-            }
-        </style>
+        <!-- Page Style -->
+        <link rel="stylesheet" href="assets/css/custom-style.css"/>
     </head>
-    <body>
+    <body class="body-light">
         <!-- Wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
@@ -100,7 +79,7 @@
                                             <div class="card-body mb-0">
                                                 <div class="row d-table">
                                                     <div class="col-auto d-table-cell align-middle">
-                                                        <div class="stat">
+                                                        <div class="icon-circle">
                                                             <i class="fa-solid fa-user-graduate fa-xl"></i>
                                                         </div>
                                                     </div>
@@ -118,7 +97,7 @@
                                             <div class="card-body mb-0">
                                                 <div class="row d-table">
                                                     <div class="col-auto d-table-cell align-middle">
-                                                        <div class="stat">
+                                                        <div class="icon-circle">
                                                             <i class="fa-solid fa-user-tie fa-xl"></i>
                                                         </div>
                                                     </div>

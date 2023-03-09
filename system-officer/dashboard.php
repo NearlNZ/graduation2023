@@ -30,14 +30,10 @@
         <script src="../assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="../assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 
-        <style>
-            body{
-                font-family: 'Kanit';
-                background-color:#EBEBEB;
-            }
-        </style>
+        <!-- Page Style -->
+        <link rel="stylesheet" href="../assets/css/custom-style.css"/>
     </head>
-    <body>
+    <body class="body-light">
         <!-- Wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">

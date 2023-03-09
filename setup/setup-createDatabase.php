@@ -38,33 +38,13 @@
     <script src="../assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 
     <!-- Page Style -->
-    <style>
-        body {
-            font-family: 'Kanit';
-            background-color: #EBEBEB;
-        }
-
-        .middle-page {
-            display: flex;
-            flex-basis: 100%;
-            min-height: 100vh;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .middle-page-inner {
-            width: 460px;
-            position: relative;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/custom-style.css"/>
 </head>
-<body>
+<body class="body-light">
     <!-- Content -->
     <div class="container-xxl">
-        <div class="middle-page container-p-y">
-            <div class="middle-page-inner py-4">
+        <div class="container-middle container-p-y">
+            <div class="width-460 py-4">
                 <div class="nav-align-top">
                     <ul class="nav nav-pills mb-3 justify-content-between row-cols-3" role="tablist">
                         <li id="pillServer" class="nav-item">

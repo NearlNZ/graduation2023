@@ -10,6 +10,9 @@
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="assets/css/template.css"/>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="assets/css/custom-style.css"/>
         
         <!-- Core JS -->
         <script src="assets/js/jquery.min.js"></script>
@@ -24,14 +27,11 @@
         <script src="assets/vendor/fontawesome/js/all.min.js"></script>
         <script src="assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-        <style>
-            body{
-                font-family: 'Kanit';
-                background-color:#EBEBEB;
-            }
-        </style>
+        <!-- Page Style -->
+        <link rel="stylesheet" href="assets/css/custom-style.css"/>
+        <style></style>
     </head>
-    <body>
+    <body class="body-light">
         <!-- Wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
@@ -71,7 +71,9 @@
 
         <!-- Template JS -->
         <script src="assets/js/template.js"></script>
+
         <!-- Page JS -->
+        <script src="include/scripts/customFunctions.js"></script>
         <script></script>
     </body>
 </html>
