@@ -137,29 +137,28 @@
             var form = $(this);
             var username = $('#username').val();
             
-            swalConfirm({
+            showConfirm({
                 icon: 'question',
                 title: 'เพิ่มบัญชีผู้ใช้',
-                text: 'ยืนยันที่จะเพิ่ม "' + username + '" เข้าสู่ระบบ',
+                text: 'ยืนยันการเพิ่มผู้ใช้ "' + username + '" เข้าสู่ระบบ',
                 confirmButtonText: 'ดำเนินการต่อ',
                 confirmCallback: function() {
-                    lunchAjaxRequest({
+                    ajaxRequest({
                         type: 'POST',
                         url: form.attr('action'),
                         data: form.serialize(),
+                        errorUrl: '../500',
                         successCallback: function(response) {
-                            if (!response.status) {
-                                logError(response);
-                            } else if (response.status == "success") {
-                                swalResponse({
+                            if(response.status == "success"){
+                                showResponse({
                                     response: response,
                                     timer: 2000,
                                     callback: function() {
                                         window.location.reload();
                                     }
                                 });
-                            } else {
-                                swalResponse({
+                            }else{
+                                showResponse({
                                     response: response
                                 });
                             }

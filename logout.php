@@ -10,4 +10,5 @@
 
     //Redirect to index page
     header('Location: index');
+    exit();
 ?>

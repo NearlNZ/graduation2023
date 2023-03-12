@@ -3,20 +3,31 @@
     $response = new stdClass();
     require_once("../../data/connect.php");
 
-    //0) Exit if user not verified key yet.
+    //1) Exit if user not verified key yet.
     session_start();
     if (!isset($_SESSION['GR-session-keyVerified']) || $_SESSION['GR-session-keyVerified'] != true) {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+
         echo json_encode($response, JSON_UNESCAPED_UNICODE);
         exit();
     }
 
     //Set parameter
-    $option = $_POST['option'];
+    $option = $_POST['option'] ?? 'create';
     $uploadFile = $_FILES['uploadFile']['tmp_name'] ?? null;
     $config = json_decode(file_get_contents('../config.json'), true);
+
+    //2) Check for required parameter
+    if($option == null){
+        $response->status = 'warning';
+        $response->title = 'เกิดข้อผิดพลาด';
+        $response->text = 'โปรดระบุข้อมูลในการสร้างฐานข้อมูลให้ครบถ้วน';
+        
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
 
     function resetDatabase($database){
         // Drop all data tables in the database
@@ -28,12 +39,12 @@
         $database->query("SET FOREIGN_KEY_CHECKS=1");
     }
 
-    //1) Set sql source depend on create option
+    //3) Set sql source depend on create option
     if ($option == "import") {
         $sql = file_get_contents($uploadFile);
-    } else if ($option == "create") {
+    }else if($option == "create") {
         $sql = file_get_contents("../../assets/file/graduationDB-empty.sql");
-    } else {
+    }else{
         $response->status = "error";
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "ตัวเลือกการสร้างฐานข้อมูลไม่ถูกต้อง";

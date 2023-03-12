@@ -133,15 +133,15 @@
             $('#formLogin').submit(function(e) {
                 e.preventDefault();
                 var form = $(this);
-                lunchAjaxRequest({
+
+                ajaxRequest({
                     type: 'POST',
                     url: form.attr('action'),
                     data: form.serialize(),
+                    errorUrl: '500',
                     successCallback: function(response) {
-                        if (!response.status) {
-                            logError(response);
-                        } else if (response.status == "success") {
-                            swalResponse({
+                        if(response.status == "success"){
+                            showResponse({
                                 response: response,
                                 timer: 2000,
                                 callback: function() {
@@ -152,8 +152,8 @@
                                     }
                                 }
                             });
-                        } else {
-                            swalResponse({
+                        }else{
+                            showResponse({
                                 response: response
                             });
                         }

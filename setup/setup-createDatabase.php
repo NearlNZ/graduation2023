@@ -148,7 +148,7 @@
             var form = $(this);
 
             //Get confirm from user
-            swalConfirm({
+            showConfirm({
                 icon: 'question',
                 text: 'การดำเนินการนี้จะลบข้อมูลเดิมหากมีฐานข้อมูลที่กำลังใช้งาน ต้องการดำเนินการต่อหรือไม่ ',
                 confirmButtonText: 'ดำเนินการต่อ',
@@ -156,34 +156,29 @@
                     //Show loader
                     $('#submitBtn').html('<span class="spinner-border spinner-border-sm me-2"></span>Importing...');
 
-                    lunchAjaxRequest({
+                    ajaxRequest({
                         type: 'POST',
                         url: form.attr('action'),
                         data: data,
+                        errorUrl: '../500',
                         processData: false,
                         contentType: false,
-                        successCallback: function(response) {
-                            //Hide loader & clear file
-                            $('#submitBtn').html('<span class="fa-solid fa-play me-2"></span>Start Import Database');
-                            $('#uploadFile').val('');
-
-                            if (!response.status) {
-                                logError(response);
-                            } else if (response.status == "success") {
-                                swalResponse({
+                        successCallback: function(response){
+                            if(response.status == "success"){
+                                showResponse({
                                     response: response,
                                     timer: 2000,
-                                    callback: function() {
+                                    callback: function(){
                                         window.location.href = "setup-createAccount";
                                     }
                                 });
-                            } else {
-                                swalResponse({
+                            }else{
+                                showResponse({
                                     response: response
                                 });
                             }
                         },
-                        errorCallback: function(response) {
+                        completeCallback: function(){
                             //Hide loader & clear file
                             $('#uploadFile').val('');
                             $('#submitBtn').html('<span class="fa-solid fa-play me-2"></span>Start Import Database');

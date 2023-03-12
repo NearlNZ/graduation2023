@@ -3,21 +3,32 @@
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $response = new stdClass();
 
-    //0) Exit if user not verified key yet.
+    //1) Exit if user not verified key yet.
     session_start();
     if (!isset($_SESSION['GR-session-keyVerified']) || $_SESSION['GR-session-keyVerified'] != true) {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+
         echo json_encode($response, JSON_UNESCAPED_UNICODE);
         exit();
     }
     
     //Set parameter
-    $server = $_POST['server'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $database = $_POST['database'];
+    $server = $_POST['server'] ?? null;
+    $username = $_POST['username'] ?? null;
+    $password = $_POST['password'] ?? '';
+    $database = $_POST['database'] ?? null;
+
+    //2) Check for required parameter
+    if($server == null || $username == null || $database == null){
+        $response->status = 'warning';
+        $response->title = 'เกิดข้อผิดพลาด';
+        $response->text = 'โปรดระบุข้อมูลในการเชื่อมต่อให้ครบถ้วน';
+        
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
 
     //Pass) Try to connect database and create database connection file
     try {
@@ -40,11 +51,11 @@
             "\n\tdate_default_timezone_set('Asia/Bangkok');" .
             "\n?>";
 
-        if (file_put_contents($file, $content) === false) {
+        if(file_put_contents($file, $content) === false){
             $response->status = "warning";
             $response->title = "เกิดข้อผิดพลาด";
-            $response->text = "ไม่สามารถสร้างการเชื่อมต่อกับฐานข้อมูลโดยอัติโนมัติได้";
-        } else {
+            $response->text = "ไม่สามารถบันทึกการเชื่อมต่อกับฐานข้อมูลได้";
+        }else{
             //Update config.json
             $config = json_decode(file_get_contents('../config.json'), true);
             $config['appDatabase'] = [
@@ -61,13 +72,16 @@
             $response->status = "success";
             $response->title = "เชื่อมต่อสำเร็จ";
             $response->text = "ระบบกำลังสร้างการเชื่อมต่อกับฐานข้อมูล";
+
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            exit();
         }
     } catch (mysqli_sql_exception $e) {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
-        $response->text = "ไม่สามารถสร้างการเชื่อมต่อกับฐานข้อมูลได้ โปรดตรวจสอบข้อมูลการเชื่อมต่อและลองใหม่อีกครั้ง";
-    }
+        $response->text = "ไม่สามารถสร้างการเชื่อมต่อกับฐานข้อมูลได้ โปรดตรวจสอบข้อมูลการเชื่อมต่อ";
 
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
-    exit();
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
 ?>

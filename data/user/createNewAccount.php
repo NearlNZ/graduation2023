@@ -3,25 +3,38 @@
     $response = new stdClass();
     require_once("../connect.php");
 
-    //0) Exit if user not verified key yet.
+    //1) Exit if user not verified key yet.
     session_start();
     if (!isset($_SESSION['GR-session-userAccount']) && (!isset($_SESSION['GR-session-keyVerified']) || $_SESSION['GR-session-keyVerified'] != true)) {
         $response->status = "warning";
         $response->title = "เกิดข้อผิดพลาด";
         $response->text = "จำเป็นต้องทำการยืนยันตัวตนก่อนใช้งาน";
+
         echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        $graduationDB->close();
         exit();
     }
 
     //Set parameter
     $id = uniqid("UUID-").rand(100,999);
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['username'] ?? null; 
+    $password = $_POST['password'] ?? null;
     $confirmPassword = $_POST['confirmPassword'] ?? null;
     $level = $_POST['userLevel'] ?? 'Officer';
     $department = $_POST['userDepartment'] ?? '';
 
-    //1) Check if password and confirm password not match when confirm password not null
+    //2) Check for required parameter
+    if($username == null || $password == null){
+        $response->status = 'warning';
+        $response->title = 'เกิดข้อผิดพลาด';
+        $response->text = 'โปรดระบุข้อมูลในการสร้างบัญชีผู้ใช้ให้ครบถ้วน';
+        
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        $graduationDB->close();
+        exit();
+    }
+
+    //3) Check if password and confirm password not match when confirm password not null
     if($confirmPassword != null && $password != $confirmPassword){
         $response->status = 'warning';
         $response->title = 'เกิดข้อผิดพลาด';
@@ -32,8 +45,10 @@
         exit();
     }
 
-    //2) Check if username already exist
-    $sql = "SELECT user_id FROM user_Account WHERE user_name = ?;";
+    //4) Check if username already exist
+    $sql = "SELECT user_id
+            FROM user_Account
+            WHERE user_name = ?;";
 
     $stmt =  $graduationDB->stmt_init(); 
     $stmt->prepare($sql);
